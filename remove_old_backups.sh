@@ -15,6 +15,8 @@ if [[ "$PWD" != "$CURR_PWD" ]]; then
     exit 1
 fi
 
+cd "$BACKUPS_DIR"
+
 ignored_files=()
 for pattern in "${BACKUPS_IGNORED_FILES[@]}"; do
     ignored_files+=("--ignore" "$pattern")

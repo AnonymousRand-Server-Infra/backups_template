@@ -1,0 +1,9 @@
+[Unit]
+Description=periodic git commit of <REPLACE: ...> backups
+
+[Service]
+Type=oneshot
+# this user must have git credentials!
+User=<REPLACE: preferably non-root user that has git credentials>
+WorkingDirectory=<REPLACE: absolute path to backup template's base directory>
+ExecStart=/usr/bin/env bash git_auto_commit.sh

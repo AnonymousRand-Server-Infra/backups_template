@@ -1,0 +1,8 @@
+[Unit]
+Description=periodic removal of <REPLACE: ...> backups
+
+[Service]
+Type=oneshot
+User=<REPLACE: preferably non-root user>
+WorkingDirectory=<REPLACE: absolute path to backup template's base directory>
+ExecStart=/usr/bin/env bash remove_old_backups.sh
