@@ -1,0 +1,9 @@
+# security
+*.env
+
+backups/*
+!backups/.gitkeep
+
+# vim
+*.swp
+*.swo
