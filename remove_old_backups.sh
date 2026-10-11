@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
 
+set -ex
+
+# this makes sure that this script always runs in its own directory so that it pulls
+# the right `.env`, for instance (this should also be an absolute path)
+script_path="$(dirname "$(realpath "${BASH_SOURCE[0]:-$0}")")"
+cd "$script_path"
+
+source ./.env
+
 # double safeguard against deleting the wrong files
-if [[ "$PWD" != '/home/ubuntu/git_server_db_backups_1' ]]; then
+if [[ "$PWD" != "$CURR_PWD" ]]; then
     echo "invalid working directory: $PWD"
     exit 1
 fi
 
-max_backup_count=12 # stores 2 days of backups at 4h per backup
-ignored_files=(--ignore={"$(basename "$BASH_SOURCE")",.*})
+ignored_files=()
+for pattern in "${BACKUPS_IGNORED_FILES[@]}"; do
+    ignored_files+=("--ignore" "$pattern")
+done
 
 backup_count="$(ls -1q "${ignored_files[@]}" | wc -l)"
-if [[ "$backup_count" -gt "$max_backup_count" ]]; then
+if [[ "$backup_count" -gt "$MAX_BACKUP_COUNT" ]]; then
     ls "${ignored_files[@]}" -t \
-            | tail --lines=+"$(expr "$max_backup_count" + 1)" \
+            | tail --lines=+"$(expr "$MAX_BACKUP_COUNT" + 1)" \
             | xargs -d '\n' rm
 fi
