@@ -10,7 +10,7 @@ cd "$script_path"
 source ./.env
 
 # double safeguard against deleting the wrong files
-if [[ "$PWD" != "$CURR_PWD" ]]; then
+if [[ "$PWD" != "${CURR_PWD%/}" ]]; then
     echo "invalid working directory: $PWD"
     exit 1
 fi
