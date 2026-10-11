@@ -11,7 +11,7 @@ source ./.env
 
 # double safeguard against deleting the wrong files
 if [[ "$PWD" != "${CURR_PWD%/}" ]]; then
-    echo "invalid working directory: $PWD"
+    echo "wrong working directory $PWD, want ${CURR_PWD%/}! scawwy >~<"
     exit 1
 fi
 
