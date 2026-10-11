@@ -7,6 +7,8 @@ set -ex
 script_path="$(dirname "$(realpath "${BASH_SOURCE[0]:-$0}")")"
 cd "$script_path"
 
+source ./.env
+
 cd "$BACKUPS_DIR"
 
 git add -A
